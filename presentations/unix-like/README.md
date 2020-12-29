@@ -30,9 +30,7 @@ Software is error prone and users are hoarders. Quite often you will find yourse
 
 ## Compression
 * `tar` : Creates an uncompressed archive to store multiple files behind one file handle. 
-  * `tar -zcvf tarfile.tar.gz <directory>` creates a gzipped compressed archive of the tI personally don't like a single file for completions. If you want to locally control completion scripts do the following.
-
-arget directcory.
+  * `tar -zcvf tarfile.tar.gz <directory>` creates a gzipped compressed archive of the target directcory.
   * `tar -zxvf tarfile.tar.gz` Uncompress and unpack the archive in one step.
 * `zip -r filename.zip <directory>` : Creates a compressed archive of the target directory.
   * `less zipfile.zip` to see the zip contents.
@@ -76,4 +74,5 @@ find . -type f -name "*.sh" -exec chmod a+x {} \;
 
 # Guides
 * [Bash](./bash.md)
+* Certificates - TODO - p12 key extraction, curl configuration, certificate authorities
 * [SSH](./ssh.md)
