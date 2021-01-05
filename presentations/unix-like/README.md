@@ -26,13 +26,13 @@ Software is error prone and users are hoarders. Quite often you will find yourse
   * For instance, today I used `pkill -f slack` after checking `ps -ef | grep slack` to ensure I wasn't getting anything else by accident
   * I greatly prefer this over `kill <process_id>` unless the application is well and truly hung and you have to beat it with the `-9` stick
 * `ps -ef | grep process_name` : find a process id or check to see overlap with search term (so you can then kill it)
-* `xkill` : Click a GUI application to kill it.
 * `tail -f` : follow that log file
 * `time <command>` : time a command
   * `time curl -sL https://google.com`
 * `top` : find the hot running processes
 * `watch` : run a command periodically
   * `watch -n 1 -d date --iso-8601=seconds` : Run once a second and show the differences in the output.
+* `xkill` : Click a GUI application to kill it.
 
 ## Compression
 * `tar` : Creates an uncompressed archive to store multiple files behind one file handle. 
@@ -92,5 +92,5 @@ chmod -R ug+rwX,o+rX-w .
 
 # Guides
 * [Bash](./bash.md)
-* Certificates - TODO - p12 key extraction, curl configuration, certificate authorities
+* [Secure Connections](./connections.md) : p12 key extraction, certificate authorities, tracing
 * [SSH](./ssh.md)
