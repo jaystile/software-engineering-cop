@@ -9,8 +9,13 @@
 
 # Certificates
 ## Certificate conversion p12/pfx to PEM
+* p12 and pfx have converged. They are the same file format.
+
 To use many command line tools, you need to convert your p12/pfx certificates into PEM format. [Common Conversions](https://www.sslshopper.com/article-most-common-openssl-commands.html)
-> `-nodes` is not 'nodes' is is 'NO DES' which means your keys will not be encrypted with a password. I highly recommend against using this option unless you have no other choice, for instance, you are configuring a service that cannot prompt for a password.
+
+> NOTE: `-nodes` is not 'nodes' is is 'NO DES' which means your keys will not be encrypted with a password. I highly recommend against using this option unless you have no other choice, for instance, you are configuring a service that cannot prompt for a password.
+* `openssl pkcs12 -in personal.p12 -out personal.key -nocerts`
+* `openssl pkcs12 -in personal.p12 -out personal.crt -nokeys`
 
 # curl
 `curl` is the tool in most frequent use to make https requests via the CLI to remote resources. It is very powerful. 
