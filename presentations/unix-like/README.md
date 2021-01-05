@@ -21,9 +21,15 @@ Software is error prone and users are hoarders. Quite often you will find yourse
 * `df -h` : disk free
 * `kill`: terminate a process
   *  `kill -9 <process_id>` : _“I tried being reasonable, but I didn't like it.”_
-* `pkill -U <userid>` : kill all processes for a user (forces a logout)  
-* `ps -ef | grep process_name` : find a process id (so you can then kill it)
+* `pkill -U <userid>` : kill all processes for a user (forces a logout) 
+* `pkill -f <text_to_find>`
+  * For instance, today I used `pkill -f slack` after checking `ps -ef | grep slack` to ensure I wasn't getting anything else by accident
+  * I greatly prefer this over `kill <process_id>` unless the application is well and truly hung and you have to beat it with the `-9` stick
+* `ps -ef | grep process_name` : find a process id or check to see overlap with search term (so you can then kill it)
+* `xkill` : Click a GUI application to kill it.
 * `tail -f` : follow that log file
+* `time <command>` : time a command
+  * `time curl -sL https://google.com`
 * `top` : find the hot running processes
 * `watch` : run a command periodically
   * `watch -n 1 -d date --iso-8601=seconds` : Run once a second and show the differences in the output.
@@ -36,6 +42,21 @@ Software is error prone and users are hoarders. Quite often you will find yourse
   * `less zipfile.zip` to see the zip contents.
   * `unzip filename.zip` : Uncompressed and unpack the archive
   * `zip -e -r filename.zip <target>` : Got sensitive information? encrypt the archive with a password.
+
+## Networking
+* `curl` : make requests
+  * `curl -LO https://somewhere.com/download.tar.gz` download a file 
+* `netstat` : useful for listing open ports
+  * `netstat -tulpn` to determine which application is using a port
+
+## System Information
+* `uname -a` : kernel version and other OS info
+* `lsusb` : list USB hubs and devices
+* `lspci` : list PCI devices
+  * `lspci | grep VGA` find video cards
+* `lscpu` : list CPU info
+* `cat /proc/meminfo` : memory info
+* `xrandr` : list monitors (you'll have a love/hate relationship with this if you're on a laptop with the laptop screen closed and an external monitor connected)
 
 # Environments
 If you can isolate your development environments away from your host system's configuration you'll be better off. Having to switch development environments from java8 to java11 or python 3.5 to python 3.6 and not mangling the configuration can be tricky.
@@ -52,21 +73,18 @@ If you can isolate your development environments away from your host system's co
 ```bash
 find . -name "*.java" | xargs grep "some_string"
 ```
+(That's really an example of piping to xargs. You would more commonly just use `grep -r "some_string" .` there or install ripgrep and use `rg 'some_string'`.)
 
 ## Fix file and directory permissions
 * I've seen numerous times where someone as root modifies a directory or applies permissions that are out of whack. I usually run something like this:
 ```bash
 # fix the ownership
-sudo chown -R apache:users .
+chown -R <user>:<group> .
 
-# find all the directories, fix the directory permission
-find . -type d -exec chmod 775 {} \;
-
-# find all the files, fix the file permissions 
-find . -type f -exec chmod 664 {} \;
-
-# find all the scripts, add the executable flag
-find . -type f -name "*.sh" -exec chmod a+x {} \;
+# fix the permissions (learn to not use numbers with chmod and you'll save yourself from running several, much longer commands)
+# user and group get read/write and execute where the item is a directory or already executable by some user
+# other gets read and executable where it should be and removes write
+chmod -R ug+rwX,o+rX-w .
 ```
 
 ## Leave a process running after logout
